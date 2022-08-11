@@ -1,10 +1,14 @@
 package com.etiya.northwind.api.controllers;
 
 import com.etiya.northwind.business.abstracts.CategoryService;
+import com.etiya.northwind.business.requests.categories.CreateCategoryRequest;
+import com.etiya.northwind.business.requests.categories.DeleteCategoryRequest;
+import com.etiya.northwind.business.requests.categories.UpdateCategoryRequest;
 import com.etiya.northwind.business.responses.categories.CategoryListResponse;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.etiya.northwind.core.utilities.results.DataResult;
+import com.etiya.northwind.core.utilities.results.Result;
+import org.hibernate.sql.Update;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,7 +22,23 @@ public class CategoriesController {
     }
 
     @GetMapping("/getAll")
-    public List<CategoryListResponse> getAll(){
+    public DataResult<List<CategoryListResponse>> getAll(){
         return categoryService.getAll();
     }
+
+    @PostMapping("/add")
+    public Result add(@RequestBody CreateCategoryRequest createCategoryRequest) {
+        return this.categoryService.add(createCategoryRequest);
+    }
+
+    @PutMapping("/update")
+    public Result update(@RequestBody UpdateCategoryRequest updateCategoryRequest) {
+        return this.categoryService.update(updateCategoryRequest);
+    }
+
+    @DeleteMapping("/delete")
+    public Result delete(@RequestBody DeleteCategoryRequest deleteCategoryRequest) {
+        return this.categoryService.delete(deleteCategoryRequest);
+    }
+
 }
