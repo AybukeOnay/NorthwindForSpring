@@ -5,7 +5,9 @@ import com.etiya.northwind.business.dtos.APIResponse;
 import com.etiya.northwind.business.requests.products.CreateProductRequest;
 import com.etiya.northwind.business.requests.products.DeleteProductRequest;
 import com.etiya.northwind.business.requests.products.UpdateProductRequest;
+import com.etiya.northwind.business.responses.employees.ReadEmployeeResponse;
 import com.etiya.northwind.business.responses.products.ProductListResponse;
+import com.etiya.northwind.business.responses.products.ReadProductResponse;
 import com.etiya.northwind.core.utilities.exceptions.BusinessException;
 import com.etiya.northwind.core.utilities.mapping.ModelMapperService;
 import com.etiya.northwind.core.utilities.results.DataResult;
@@ -45,6 +47,7 @@ public class ProductManager implements ProductService {
     @Override
     public Result add(CreateProductRequest createProductRequest) {
         checkIfCategoryLimitExceeds(createProductRequest.getCategoryId());
+        checkIfProductExistsByName(createProductRequest.getProductName());
 
         Product product = this.modelMapperService.forRequest().map(createProductRequest,Product.class);
         this.productRepository.save(product);
@@ -64,6 +67,20 @@ public class ProductManager implements ProductService {
         Product product = this.modelMapperService.forRequest().map(deleteProductRequest,Product.class);
         this.productRepository.delete(product);
         return new SuccessResult("PRODUCT.DELETED");
+    }
+
+    @Override
+    public DataResult<ReadProductResponse> getById(int id) {
+        Product product = this.productRepository.findById(id).get();
+        ReadProductResponse readProductResponse = this.modelMapperService.forResponse().map(product, ReadProductResponse.class);
+
+        return new SuccessDataResult<ReadProductResponse>(readProductResponse);
+    }
+
+    @Override
+    public Product getByProductId(int id) {
+        Product product = this.productRepository.findById(id).get();
+        return product;
     }
 
     @Override
@@ -93,7 +110,10 @@ public class ProductManager implements ProductService {
         }
     }
 
-    private void checkIfProductNameExists(){
-        
+    private void checkIfProductExistsByName(String name){
+        Product currentProduct = this.productRepository.findByProductName(name);
+        if (currentProduct != null){
+            throw new BusinessException("Product name already exists");
+        }
     }
 }

@@ -5,7 +5,10 @@ import com.etiya.northwind.business.requests.categories.CreateCategoryRequest;
 import com.etiya.northwind.business.requests.categories.DeleteCategoryRequest;
 import com.etiya.northwind.business.requests.categories.UpdateCategoryRequest;
 import com.etiya.northwind.business.responses.categories.CategoryListResponse;
+import com.etiya.northwind.business.responses.categories.ReadCategoryResponse;
 import com.etiya.northwind.business.responses.products.ProductListResponse;
+import com.etiya.northwind.business.responses.suppliers.ReadSupplierResponse;
+import com.etiya.northwind.core.utilities.exceptions.BusinessException;
 import com.etiya.northwind.core.utilities.mapping.ModelMapperService;
 import com.etiya.northwind.core.utilities.results.DataResult;
 import com.etiya.northwind.core.utilities.results.Result;
@@ -40,6 +43,7 @@ public class CategoryManager implements CategoryService {
 
     @Override
     public Result add(CreateCategoryRequest createCategoryRequest) {
+        checkIfCategoryExistsByName(createCategoryRequest.getCategoryName());
         Category category = this.modelMapperService.forRequest().map(createCategoryRequest,Category.class);
         this.categoryRepository.save(category);
         return new SuccessResult("CATEGORY.ADDED");
@@ -65,6 +69,14 @@ public class CategoryManager implements CategoryService {
         return new SuccessResult("CATEGORY.DELETED");
     }
 
+    @Override
+    public DataResult<ReadCategoryResponse> getById(int id) {
+        Category category = this.categoryRepository.findById(id).get();
+        ReadCategoryResponse response = this.modelMapperService.forRequest().map(category, ReadCategoryResponse.class);
+
+        return new SuccessDataResult<ReadCategoryResponse>(response);
+    }
+
     private boolean checkIfCategoryExitsById(int id)  {
         boolean exists=false;
         if(categoryRepository.findById(id).get()!=null) {
@@ -74,5 +86,11 @@ public class CategoryManager implements CategoryService {
         return exists;
     }
 
+    private void checkIfCategoryExistsByName(String name){
+        Category currentCategory = this.categoryRepository.findByCategoryName(name);
+        if (currentCategory != null ){
+            throw new BusinessException("Category name already exists");
+        }
+    }
 
 }

@@ -6,6 +6,7 @@ import com.etiya.northwind.business.requests.employees.DeleteEmployeeRequest;
 import com.etiya.northwind.business.requests.employees.UpdateEmployeeRequest;
 import com.etiya.northwind.business.responses.customers.CustomerListResponse;
 import com.etiya.northwind.business.responses.employees.EmployeeListResponse;
+import com.etiya.northwind.business.responses.employees.ReadEmployeeResponse;
 import com.etiya.northwind.business.responses.products.ProductListResponse;
 import com.etiya.northwind.core.utilities.mapping.ModelMapperService;
 import com.etiya.northwind.core.utilities.results.DataResult;
@@ -55,5 +56,13 @@ public class EmployeeManager implements EmployeeService {
         Employee employee = this.modelMapperService.forRequest().map(deleteEmployeeRequest,Employee.class);
         this.employeeRepository.delete(employee);
         return new SuccessResult("EMPLOYEE.DELETED");
+    }
+
+    @Override
+    public DataResult<ReadEmployeeResponse> getById(int id) {
+        Employee employee = this.employeeRepository.findById(id).get();
+        ReadEmployeeResponse response = this.modelMapperService.forRequest().map(employee, ReadEmployeeResponse.class);
+
+        return new SuccessDataResult<ReadEmployeeResponse>(response);
     }
 }

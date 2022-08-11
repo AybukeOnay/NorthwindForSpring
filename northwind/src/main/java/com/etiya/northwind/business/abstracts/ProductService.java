@@ -5,8 +5,10 @@ import com.etiya.northwind.business.requests.products.CreateProductRequest;
 import com.etiya.northwind.business.requests.products.DeleteProductRequest;
 import com.etiya.northwind.business.requests.products.UpdateProductRequest;
 import com.etiya.northwind.business.responses.products.ProductListResponse;
+import com.etiya.northwind.business.responses.products.ReadProductResponse;
 import com.etiya.northwind.core.utilities.results.DataResult;
 import com.etiya.northwind.core.utilities.results.Result;
+import com.etiya.northwind.entities.concretes.Product;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
@@ -16,6 +18,9 @@ public interface ProductService {
     Result add(CreateProductRequest createProductRequest);
     Result update(UpdateProductRequest updateProductRequest);
     Result delete(DeleteProductRequest deleteProductRequest);
+
+    DataResult<ReadProductResponse> getById(int id);
+    Product getByProductId(int id);
 
     List<ProductListResponse> getProductsWithSorting(String field);
     APIResponse<List<ProductListResponse>> findProductsWithPagination(@PathVariable int pageNumber, @PathVariable int pageSize);

@@ -4,7 +4,9 @@ import com.etiya.northwind.business.abstracts.OrderService;
 import com.etiya.northwind.business.requests.orders.CreateOrderRequest;
 import com.etiya.northwind.business.requests.orders.DeleteOrderRequest;
 import com.etiya.northwind.business.requests.orders.UpdateOrderRequest;
+import com.etiya.northwind.business.responses.employees.ReadEmployeeResponse;
 import com.etiya.northwind.business.responses.orders.OrderListResponse;
+import com.etiya.northwind.business.responses.orders.ReadOrderResponse;
 import com.etiya.northwind.business.responses.products.ProductListResponse;
 import com.etiya.northwind.core.utilities.mapping.ModelMapperService;
 import com.etiya.northwind.core.utilities.results.DataResult;
@@ -56,6 +58,21 @@ public class OrderManager implements OrderService {
     public Result delete(DeleteOrderRequest deleteOrderRequest) {
         Order order = this.modelMapperService.forRequest().map(deleteOrderRequest,Order.class);
         this.orderRepository.delete(order);
+
         return new SuccessResult("ORDER.DELETED");
+    }
+
+    @Override
+    public DataResult<ReadOrderResponse> getById(int id) {
+        Order order = this.orderRepository.findById(id).get();
+        ReadOrderResponse response = this.modelMapperService.forResponse().map(order, ReadOrderResponse.class);
+
+        return new SuccessDataResult<ReadOrderResponse>(response);
+    }
+
+    @Override
+    public Order getByOrderId(int id) {
+        Order order = this.orderRepository.findById(id).get();
+        return order;
     }
 }

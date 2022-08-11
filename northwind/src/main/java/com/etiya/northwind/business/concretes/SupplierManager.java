@@ -5,7 +5,9 @@ import com.etiya.northwind.business.requests.suppliers.CreateSupplierRequest;
 import com.etiya.northwind.business.requests.suppliers.DeleteSupplierRequest;
 import com.etiya.northwind.business.requests.suppliers.UpdateSupplierRequest;
 import com.etiya.northwind.business.responses.customers.CustomerListResponse;
+import com.etiya.northwind.business.responses.employees.ReadEmployeeResponse;
 import com.etiya.northwind.business.responses.products.ProductListResponse;
+import com.etiya.northwind.business.responses.suppliers.ReadSupplierResponse;
 import com.etiya.northwind.business.responses.suppliers.SupplierListResponse;
 import com.etiya.northwind.core.utilities.mapping.ModelMapperService;
 import com.etiya.northwind.core.utilities.results.DataResult;
@@ -14,6 +16,7 @@ import com.etiya.northwind.core.utilities.results.SuccessDataResult;
 import com.etiya.northwind.core.utilities.results.SuccessResult;
 import com.etiya.northwind.dataAccess.SupplierRepository;
 import com.etiya.northwind.entities.concretes.Customer;
+import com.etiya.northwind.entities.concretes.Employee;
 import com.etiya.northwind.entities.concretes.Supplier;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -57,5 +60,13 @@ public class SupplierManager implements SupplierService {
         Supplier supplier = this.modelMapperService.forRequest().map(deleteSupplierRequest,Supplier.class);
         this.supplierRepository.delete(supplier);
         return new SuccessResult("SUPPLIER.DELETED");
+    }
+
+    @Override
+    public DataResult<ReadSupplierResponse> getById(int id) {
+        Supplier supplier = this.supplierRepository.findById(id).get();
+        ReadSupplierResponse response = this.modelMapperService.forRequest().map(supplier, ReadSupplierResponse.class);
+
+        return new SuccessDataResult<ReadSupplierResponse>(response);
     }
 }

@@ -1,10 +1,15 @@
 package com.etiya.northwind.api.controllers;
 
 import com.etiya.northwind.business.abstracts.OrderDetailService;
+import com.etiya.northwind.business.requests.orderDetails.CreateOrderDetailRequest;
+import com.etiya.northwind.business.requests.orderDetails.DeleteOrderDetailRequest;
+import com.etiya.northwind.business.requests.orderDetails.UpdateOrderDetailRequest;
 import com.etiya.northwind.business.responses.orderDetails.OrderDetailListResponse;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.etiya.northwind.core.utilities.results.DataResult;
+import com.etiya.northwind.core.utilities.results.Result;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -15,8 +20,23 @@ public class OrderDetailsController {
     public OrderDetailsController(OrderDetailService orderDetailService) {
         this.orderDetailService = orderDetailService;
     }
-
-    public List<OrderDetailListResponse> getAll(){
+    @GetMapping("/getall")
+    public DataResult<List<OrderDetailListResponse>> getAll(){
         return orderDetailService.getAll();
+    }
+
+    @PostMapping("/add")
+    public Result add(@RequestBody @Valid CreateOrderDetailRequest createOrderDetailRequest) {
+        return this.orderDetailService.add(createOrderDetailRequest);
+    }
+
+    @PutMapping("/update")
+    public Result update(@RequestBody @Valid UpdateOrderDetailRequest updateOrderDetailRequest) {
+        return this.orderDetailService.update(updateOrderDetailRequest);
+    }
+
+    @DeleteMapping("/delete")
+    public Result delete(@RequestBody @Valid DeleteOrderDetailRequest deleteOrderDetailRequest) {
+        return this.orderDetailService.delete(deleteOrderDetailRequest);
     }
 }

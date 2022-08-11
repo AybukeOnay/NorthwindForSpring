@@ -4,6 +4,7 @@ import com.etiya.northwind.business.requests.customers.CreateCustomerRequest;
 import com.etiya.northwind.business.requests.customers.DeleteCustomerRequest;
 import com.etiya.northwind.business.requests.customers.UpdateCustomerRequest;
 import com.etiya.northwind.business.responses.customers.CustomerListResponse;
+import com.etiya.northwind.business.responses.customers.ReadCustomerResponse;
 import com.etiya.northwind.core.utilities.results.DataResult;
 import com.etiya.northwind.core.utilities.results.Result;
 
@@ -14,6 +15,6 @@ public interface CustomerService {
     Result add(CreateCustomerRequest createCustomerRequest);
     Result update(UpdateCustomerRequest updateCustomerRequest);
     Result delete(DeleteCustomerRequest deleteCustomerRequest);
-    //ReadCustomerResponse getById(String id);
+    DataResult<ReadCustomerResponse> getById(String id);
 
 }
