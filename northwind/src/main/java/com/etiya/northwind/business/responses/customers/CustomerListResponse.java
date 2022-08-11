@@ -10,8 +10,10 @@ import lombok.NoArgsConstructor;
 public class CustomerListResponse {
 
     private String customerId;
+    private int cityId;
+    private int countryId;
     private String companyName;
     private String address;
-    private String city;
+
 
 }

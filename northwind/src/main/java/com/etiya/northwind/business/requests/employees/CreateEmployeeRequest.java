@@ -17,8 +17,15 @@ public class CreateEmployeeRequest {
     private int employeeId;
 
     @NotNull
-    @NotBlank(message = "First name is mandatory")
-    @Size(min=2 ,message = "First name must be 2  characters")
+    @Min(1)
+    private int cityId;
+
+    @NotNull
+    @Min(1)
+    private int countryId;
+
+    @NotNull
+    private Integer reportTo;
 
     @NotNull
     @NotBlank(message = "First name is mandatory")

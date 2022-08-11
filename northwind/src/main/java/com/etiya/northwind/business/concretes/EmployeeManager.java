@@ -8,6 +8,7 @@ import com.etiya.northwind.business.responses.customers.CustomerListResponse;
 import com.etiya.northwind.business.responses.employees.EmployeeListResponse;
 import com.etiya.northwind.business.responses.employees.ReadEmployeeResponse;
 import com.etiya.northwind.business.responses.products.ProductListResponse;
+import com.etiya.northwind.core.utilities.exceptions.BusinessException;
 import com.etiya.northwind.core.utilities.mapping.ModelMapperService;
 import com.etiya.northwind.core.utilities.results.DataResult;
 import com.etiya.northwind.core.utilities.results.Result;
@@ -39,6 +40,7 @@ public class EmployeeManager implements EmployeeService {
 
     @Override
     public Result add(CreateEmployeeRequest createEmployeeRequest) {
+        checkIfReportLimitExceeds(createEmployeeRequest.getReportTo());
         Employee employee = this.modelMapperService.forRequest().map(createEmployeeRequest,Employee.class);
         this.employeeRepository.save(employee);
         return new SuccessResult("EMPLOYEE.ADDED");
@@ -64,5 +66,12 @@ public class EmployeeManager implements EmployeeService {
         ReadEmployeeResponse response = this.modelMapperService.forRequest().map(employee, ReadEmployeeResponse.class);
 
         return new SuccessDataResult<ReadEmployeeResponse>(response);
+    }
+
+    private void checkIfReportLimitExceeds(Integer reportId)  {
+        List<Employee> employees = this.employeeRepository.findByReportTo(reportId);
+        if (employees.size() > 10){
+            throw new BusinessException("Report limit is exceeded");
+        }
     }
 }

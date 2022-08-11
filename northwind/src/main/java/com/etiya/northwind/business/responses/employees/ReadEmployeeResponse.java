@@ -8,11 +8,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ReadEmployeeResponse {
+
     private int employeeId;
-
+    private int cityId;
+    private int countryId;
     private String firstName;
-
     private String lastName;
-
     private String title;
+    private int reportTo;
 }

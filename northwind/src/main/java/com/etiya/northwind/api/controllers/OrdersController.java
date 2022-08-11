@@ -5,7 +5,9 @@ import com.etiya.northwind.business.requests.orders.CreateOrderRequest;
 import com.etiya.northwind.business.requests.orders.DeleteOrderRequest;
 import com.etiya.northwind.business.requests.orders.UpdateOrderRequest;
 import com.etiya.northwind.business.responses.categories.CategoryListResponse;
+import com.etiya.northwind.business.responses.employees.ReadEmployeeResponse;
 import com.etiya.northwind.business.responses.orders.OrderListResponse;
+import com.etiya.northwind.business.responses.orders.ReadOrderResponse;
 import com.etiya.northwind.core.utilities.results.DataResult;
 import com.etiya.northwind.core.utilities.results.Result;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +27,12 @@ public class OrdersController {
     @GetMapping("/getAll")
     public DataResult<List<OrderListResponse>> getAll(){
         return orderService.getAll();
+    }
+
+    @GetMapping("/getbyid")
+    public DataResult<ReadOrderResponse> getById(int id)
+    {
+        return orderService.getById(id);
     }
 
     @PostMapping("/add")

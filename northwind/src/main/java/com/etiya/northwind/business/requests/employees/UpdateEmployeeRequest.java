@@ -16,6 +16,15 @@ public class UpdateEmployeeRequest {
     private int employeeId;
 
     @NotNull
+    private int cityId;
+
+    @NotNull
+    private int countryId;
+
+    @NotNull
+    private int reportTo;
+
+    @NotNull
     @NotBlank(message = "First Name is mandatory")
     @Size(min=2 ,message = "First Name must be 2  characters")
     @Pattern(regexp="(^[a-zA-Z]{2,50}$)", message = "First Name must be of characters")

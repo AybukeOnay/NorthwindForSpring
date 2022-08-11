@@ -11,8 +11,11 @@ import org.hibernate.validator.constraints.pl.NIP;
 public class EmployeeListResponse {
 
     private int employeeId;
+    private int cityId;
+    private int countryId;
     private String firstName;
     private String lastName;
     private String title;
+    private Integer reportTo;
 
 }

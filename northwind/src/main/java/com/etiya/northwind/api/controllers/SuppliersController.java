@@ -4,7 +4,9 @@ import com.etiya.northwind.business.abstracts.SupplierService;
 import com.etiya.northwind.business.requests.suppliers.CreateSupplierRequest;
 import com.etiya.northwind.business.requests.suppliers.DeleteSupplierRequest;
 import com.etiya.northwind.business.requests.suppliers.UpdateSupplierRequest;
+import com.etiya.northwind.business.responses.employees.ReadEmployeeResponse;
 import com.etiya.northwind.business.responses.orders.OrderListResponse;
+import com.etiya.northwind.business.responses.suppliers.ReadSupplierResponse;
 import com.etiya.northwind.business.responses.suppliers.SupplierListResponse;
 import com.etiya.northwind.core.utilities.results.DataResult;
 import com.etiya.northwind.core.utilities.results.Result;
@@ -27,6 +29,12 @@ public class SuppliersController {
         return supplierService.getAll();
     }
 
+    @GetMapping("/getbyid")
+    public DataResult<ReadSupplierResponse> getById(int id)
+    {
+        return supplierService.getById(id);
+    }
+
     @PostMapping("/add")
     public Result add(@RequestBody @Valid CreateSupplierRequest createSupplierRequest){
        return this.supplierService.add(createSupplierRequest);
@@ -41,4 +49,6 @@ public class SuppliersController {
     public Result delete(@RequestBody DeleteSupplierRequest deleteSupplierRequest){
         return this.supplierService.delete(deleteSupplierRequest);
     }
+
+
 }

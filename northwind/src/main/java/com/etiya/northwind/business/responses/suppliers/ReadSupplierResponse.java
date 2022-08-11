@@ -8,11 +8,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ReadSupplierResponse {
+
     private int supplierId;
-
+    private int cityId;
+    private int countryId;
     private String companyName;
-
     private String address;
 
-    private String city;
+
 }

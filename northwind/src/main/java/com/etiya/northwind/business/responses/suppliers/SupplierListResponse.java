@@ -9,8 +9,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class SupplierListResponse {
 
+    private int supplierId;
     private int productId;
+    private int cityId;
+    private int countryId;
     private String companyName;
     private String address;
-    private String city;
+
 }

@@ -18,6 +18,9 @@ import com.etiya.northwind.dataAccess.ProductRepository;
 import com.etiya.northwind.entities.concretes.Category;
 import com.etiya.northwind.entities.concretes.Product;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -95,12 +98,28 @@ public class ProductManager implements ProductService {
 
     @Override
     public APIResponse<List<ProductListResponse>> findProductsWithPagination(int pageNumber, int pageSize) {
-        return null;
+        Pageable pageable = PageRequest.of(pageNumber - 1, pageSize);
+        Page<Product> resultPage =  this.productRepository.findAll(pageable);//buraya dön
+        List<Product> result = this.productRepository.findAll(pageable).getContent();
+
+
+
+        List<ProductListResponse> response = result.stream()
+                .map(product -> this.modelMapperService.forResponse().map(product, ProductListResponse.class))
+                .collect(Collectors.toList());
+
+        return new APIResponse<List<ProductListResponse>>( pageSize,result.size(),pageNumber,resultPage.getPageable().getPageSize(),response) ;
     }
 
     @Override
     public APIResponse<List<ProductListResponse>> findProductsWithPaginationAndSorting2(int pageNumber, int pageSize, String field) {
-        return null;
+        Pageable pageable = PageRequest.of(pageNumber - 1, pageSize).withSort(Sort.by(field));
+        List<Product> resultPage =  this.productRepository.findAll();
+        List<Product> result = this.productRepository.findAll(pageable).getContent();
+        List<ProductListResponse> response = result.stream()
+                .map(product -> this.modelMapperService.forResponse().map(product, ProductListResponse.class))
+                .collect(Collectors.toList());
+        return new APIResponse<List<ProductListResponse>>(pageSize,result.size(),pageNumber,resultPage.size(),response) ;
     }
 
     private void checkIfCategoryLimitExceeds(int id){

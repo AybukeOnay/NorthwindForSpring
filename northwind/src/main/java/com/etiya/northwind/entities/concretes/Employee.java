@@ -28,6 +28,17 @@ public class Employee {
     @Column(name = "title")
     private String title;
 
+    @Column(name = "reports_to")
+    private Integer reportTo;
+
     @OneToMany(mappedBy = "employee")
     private List<Order> orders;
+
+    @ManyToOne
+    @JoinColumn(name = "city_id")
+    private City city;
+
+    @ManyToOne
+    @JoinColumn(name = "country_id")
+    private Country country;
 }

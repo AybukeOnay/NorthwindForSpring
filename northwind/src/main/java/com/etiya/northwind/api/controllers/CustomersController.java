@@ -4,7 +4,9 @@ import com.etiya.northwind.business.abstracts.CustomerService;
 import com.etiya.northwind.business.requests.customers.CreateCustomerRequest;
 import com.etiya.northwind.business.requests.customers.DeleteCustomerRequest;
 import com.etiya.northwind.business.requests.customers.UpdateCustomerRequest;
+import com.etiya.northwind.business.responses.categories.ReadCategoryResponse;
 import com.etiya.northwind.business.responses.customers.CustomerListResponse;
+import com.etiya.northwind.business.responses.customers.ReadCustomerResponse;
 import com.etiya.northwind.core.utilities.results.DataResult;
 import com.etiya.northwind.core.utilities.results.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,12 @@ public class CustomersController {
     @GetMapping("/getall")
     public DataResult<List<CustomerListResponse>> getAll(){
         return customerService.getAll();
+    }
+
+    @GetMapping("/getbyid")
+    public DataResult<ReadCustomerResponse> getById(String id)
+    {
+        return customerService.getById(id);
     }
 
     @PostMapping("/add")

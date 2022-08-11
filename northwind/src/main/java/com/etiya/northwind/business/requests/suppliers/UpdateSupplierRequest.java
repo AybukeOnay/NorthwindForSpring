@@ -19,6 +19,12 @@ public class UpdateSupplierRequest {
     private int supplierId;
 
     @NotNull
+    private int cityId;
+
+    @NotNull
+    private int countryId;
+
+    @NotNull
     @NotBlank
     @Size(min=2 ,message = "Company Name must be 2  characters")
     private String companyName;
@@ -27,7 +33,5 @@ public class UpdateSupplierRequest {
     @NotBlank
     private String address;
 
-    @NotNull
-    @NotBlank
-    private String city;
+
 }

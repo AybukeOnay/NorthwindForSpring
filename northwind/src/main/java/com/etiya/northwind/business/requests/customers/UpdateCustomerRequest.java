@@ -19,6 +19,12 @@ public class UpdateCustomerRequest {
     private String customerId;
 
     @NotNull
+    private int cityId;
+
+    @NotNull
+    private int countryId;
+
+    @NotNull
     @NotBlank
     private String companyName;
 
@@ -26,7 +32,5 @@ public class UpdateCustomerRequest {
     @NotBlank
     private String address;
 
-    @NotNull
-    @NotBlank
-    private String city;
+
 }

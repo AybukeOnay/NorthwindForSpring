@@ -9,7 +9,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ReadCustomerResponse {
     private String customerId;
+    private int cityId;
+    private int countryId;
     private String companyName;
     private String address;
-    private String city;
+
 }
