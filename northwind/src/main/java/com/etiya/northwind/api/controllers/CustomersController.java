@@ -4,7 +4,6 @@ import com.etiya.northwind.business.abstracts.CustomerService;
 import com.etiya.northwind.business.requests.customers.CreateCustomerRequest;
 import com.etiya.northwind.business.requests.customers.DeleteCustomerRequest;
 import com.etiya.northwind.business.requests.customers.UpdateCustomerRequest;
-import com.etiya.northwind.business.responses.categories.ReadCategoryResponse;
 import com.etiya.northwind.business.responses.customers.CustomerListResponse;
 import com.etiya.northwind.business.responses.customers.ReadCustomerResponse;
 import com.etiya.northwind.core.utilities.results.DataResult;

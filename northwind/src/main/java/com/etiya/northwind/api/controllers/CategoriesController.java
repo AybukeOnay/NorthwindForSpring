@@ -8,7 +8,6 @@ import com.etiya.northwind.business.responses.categories.CategoryListResponse;
 import com.etiya.northwind.business.responses.categories.ReadCategoryResponse;
 import com.etiya.northwind.core.utilities.results.DataResult;
 import com.etiya.northwind.core.utilities.results.Result;
-import org.hibernate.sql.Update;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

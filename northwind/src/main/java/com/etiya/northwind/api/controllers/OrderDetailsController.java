@@ -4,7 +4,6 @@ import com.etiya.northwind.business.abstracts.OrderDetailService;
 import com.etiya.northwind.business.requests.orderDetails.CreateOrderDetailRequest;
 import com.etiya.northwind.business.requests.orderDetails.DeleteOrderDetailRequest;
 import com.etiya.northwind.business.requests.orderDetails.UpdateOrderDetailRequest;
-import com.etiya.northwind.business.responses.categories.ReadCategoryResponse;
 import com.etiya.northwind.business.responses.orderDetails.OrderDetailListResponse;
 import com.etiya.northwind.business.responses.orderDetails.ReadOrderDetailResponse;
 import com.etiya.northwind.core.utilities.results.DataResult;

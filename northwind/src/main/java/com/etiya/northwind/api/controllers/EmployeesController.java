@@ -4,7 +4,6 @@ import com.etiya.northwind.business.abstracts.EmployeeService;
 import com.etiya.northwind.business.requests.employees.CreateEmployeeRequest;
 import com.etiya.northwind.business.requests.employees.DeleteEmployeeRequest;
 import com.etiya.northwind.business.requests.employees.UpdateEmployeeRequest;
-import com.etiya.northwind.business.responses.categories.ReadCategoryResponse;
 import com.etiya.northwind.business.responses.employees.EmployeeListResponse;
 import com.etiya.northwind.business.responses.employees.ReadEmployeeResponse;
 import com.etiya.northwind.core.utilities.results.DataResult;
